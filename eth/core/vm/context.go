@@ -25,8 +25,10 @@ import (
 	"math/big"
 	"time"
 
-	"pkg.berachain.dev/polaris/eth/common"
-	"pkg.berachain.dev/polaris/lib/utils"
+	"github.com/berachain/polaris/lib/utils"
+
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/vm"
 )
 
 // ContextKey defines a type alias for a stdlib Context key.
@@ -44,7 +46,7 @@ var _ context.Context = (*PolarContext)(nil)
 // Context is the context for a Polaris EVM execution.
 type PolarContext struct {
 	baseCtx   context.Context
-	evm       PrecompileEVM
+	evm       vm.PrecompileEVM
 	msgSender common.Address
 	msgValue  *big.Int
 }
@@ -52,7 +54,7 @@ type PolarContext struct {
 // NewPolarContext creates a new PolarContext given an EVM call request.
 func NewPolarContext(
 	baseCtx context.Context,
-	evm PrecompileEVM,
+	evm vm.PrecompileEVM,
 	msgSender common.Address,
 	msgValue *big.Int,
 ) *PolarContext {
@@ -72,7 +74,7 @@ func (c *PolarContext) Context() context.Context {
 	return c.baseCtx
 }
 
-func (c *PolarContext) Evm() PrecompileEVM {
+func (c *PolarContext) Evm() vm.PrecompileEVM {
 	return c.evm
 }
 
@@ -84,7 +86,7 @@ func (c *PolarContext) MsgValue() *big.Int {
 	return c.msgValue
 }
 
-func (c *PolarContext) Block() *BlockContext {
+func (c *PolarContext) Block() *vm.BlockContext {
 	return c.evm.GetContext()
 }
 
