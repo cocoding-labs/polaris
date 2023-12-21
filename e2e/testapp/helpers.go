@@ -32,6 +32,9 @@ import (
 	govprecompile "pkg.berachain.dev/polaris/cosmos/precompile/governance"
 	stakingprecompile "pkg.berachain.dev/polaris/cosmos/precompile/staking"
 	ethprecompile "pkg.berachain.dev/polaris/eth/core/precompile"
+
+	hypnativeprecompile "pkg.berachain.dev/polaris/cosmos/precompile/hypnative"
+	jsonstoreprecompile "pkg.berachain.dev/polaris/cosmos/precompile/jsonstore"
 )
 
 // PrecompilesToInject returns a function that provides the initialization of the standard
@@ -61,6 +64,8 @@ func PrecompilesToInject(
 				app.interfaceRegistry,
 			),
 			stakingprecompile.NewPrecompileContract(app.AccountKeeper, app.StakingKeeper),
+			hypnativeprecompile.NewPrecompileContract(),
+			jsonstoreprecompile.NewPrecompileContract(),
 		}...)
 
 		// Add the custom precompiles to the injector.

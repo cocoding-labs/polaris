@@ -35,6 +35,9 @@ type ContextKey string
 // PolarContextKey is the key in the context.Context which holds the PolarContext.
 const PolarContextKey ContextKey = "polar-context"
 
+// AddressContextKey is the key in the context.Context which holds the Address.
+const AddressContextKey ContextKey = "address-context"
+
 // Compile-time assertion that PolarContext implements context.Context.
 var _ context.Context = (*PolarContext)(nil)
 
@@ -83,6 +86,22 @@ func (c *PolarContext) MsgValue() *big.Int {
 
 func (c *PolarContext) Block() *BlockContext {
 	return c.evm.GetContext()
+}
+
+func (c *PolarContext) AddBalance(addr common.Address, amount *big.Int) {
+	c.evm.GetStateDB().AddBalance(addr, amount)
+}
+
+func (c *PolarContext) SubBalance(addr common.Address, amount *big.Int) {
+	c.evm.GetStateDB().SubBalance(addr, amount)
+}
+
+func (c *PolarContext) GetState(slot common.Hash) common.Hash {
+	return c.evm.GetStateDB().GetState(utils.MustGetAs[common.Address](c.Value(AddressContextKey)), slot)
+}
+
+func (c *PolarContext) SetState(slot, value common.Hash) {
+	c.evm.GetStateDB().SetState(utils.MustGetAs[common.Address](c.Value(AddressContextKey)), slot, value)
 }
 
 // =============================================================================

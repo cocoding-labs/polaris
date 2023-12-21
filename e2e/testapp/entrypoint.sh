@@ -113,10 +113,10 @@ if [[ $overwrite == "y" || $overwrite == "Y" ]]; then
 fi
 
 # set the auth token for DA bridge node
-AUTH_TOKEN=$(docker exec $(docker ps -q)  celestia bridge --node.store /home/celestia/bridge/ auth admin)
+AUTH_TOKEN=$(docker exec $(docker ps -f ancestor=ghcr.io/rollkit/local-celestia-devnet:v0.12.1 -q)  celestia bridge --node.store /home/celestia/bridge/ auth admin)
 
 # set the data availability layer's block height from local-celestia-devnet
-DA_BLOCK_HEIGHT=$(docker exec $(docker ps -q) celestia header local-head --token $AUTH_TOKEN | jq '.result.header.height' -r)
+DA_BLOCK_HEIGHT=$(docker exec $(docker ps -f ancestor=ghcr.io/rollkit/local-celestia-devnet:v0.12.1 -q) celestia header local-head --token $AUTH_TOKEN | jq '.result.header.height' -r)
 echo $DA_BLOCK_HEIGHT
 
 # set a random namespace to post data to DA

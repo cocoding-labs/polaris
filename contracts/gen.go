@@ -38,3 +38,12 @@ package contracts
 //go:generate abigen --pkg testing_governance --abi ./out/GovernanceWrapper.sol/GovernanceWrapper.abi.json --bin ./out/GovernanceWrapper.sol/GovernanceWrapper.bin --out ./bindings/testing/governance/governance_wrapper.abigen.go --type GovernanceWrapper
 //go:generate abigen --pkg testing --abi ./out/DistributionWrapper.sol/DistributionWrapper.abi.json --bin ./out/DistributionWrapper.sol/DistributionWrapper.bin --out ./bindings/testing/distribution_testing_helper.abigen.go --type DistributionWrapper
 //go:generate abigen --pkg testing --abi ./out/MockMethods.sol/MockMethods.abi.json --out ./bindings/testing/mock_methods.abigen.go --type MockMethods
+
+go:generate abigen --pkg hypnative --abi ./out/HypNative.sol/IHypNative.abi.json --bin ./out/HypNative.sol/IHypNative.bin --out ./bindings/cosmos/precompile/hypnative/i_hypnative.abigen.go --type HypNative
+
+
+abigen --pkg jsonstore \
+--abi ./out/JsonStore.sol/IJsonStore.abi.json \
+--bin ./out/JsonStore.sol/IJsonStore.bin \
+--out ./bindings/cosmos/precompile/jsonstore/i_jsonstore.abigen.go \
+--type JsonStore

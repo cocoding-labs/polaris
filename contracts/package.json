@@ -14,5 +14,9 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-foundry": "^1.0.1",
     "hardhat": "^2.16.0"
+  },
+  "dependencies": {
+    "@hyperlane-xyz/core": "^3.2.0",
+    "@openzeppelin/contracts": "^4.9.3"
   }
 }
