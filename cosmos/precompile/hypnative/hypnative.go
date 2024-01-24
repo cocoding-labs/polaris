@@ -6,10 +6,10 @@ import (
 	"errors"
 	"math/big"
 
-	generated "pkg.berachain.dev/polaris/contracts/bindings/cosmos/precompile/hypnative"
-	"pkg.berachain.dev/polaris/eth/common"
-	ethprecompile "pkg.berachain.dev/polaris/eth/core/precompile"
-	"pkg.berachain.dev/polaris/eth/core/vm"
+	generated "github.com/berachain/polaris/contracts/bindings/cosmos/precompile/hypnative"
+	ethprecompile "github.com/berachain/polaris/eth/core/precompile"
+	pvm "github.com/berachain/polaris/eth/core/vm"
+	"github.com/ethereum/go-ethereum/common"
 )
 
 // Contract is the main struct for the HypNative contract
@@ -47,13 +47,13 @@ var ZeroAddress = common.Address{}
 
 // Owner returns the owner of the HypNative contract
 func (c *Contract) Owner(ctx context.Context) (common.Address, error) {
-	pCtx := vm.UnwrapPolarContext(ctx)
+	pCtx := pvm.UnwrapPolarContext(ctx)
 	return common.BytesToAddress(pCtx.GetState(Slots.Owner).Bytes()), nil
 }
 
 // Minter returns the minter of the HypNative contract
 func (c *Contract) Minter(ctx context.Context) (common.Address, error) {
-	pCtx := vm.UnwrapPolarContext(ctx)
+	pCtx := pvm.UnwrapPolarContext(ctx)
 	return common.BytesToAddress(pCtx.GetState(Slots.Minter).Bytes()), nil
 }
 
@@ -64,7 +64,7 @@ func (c *Contract) Mint(ctx context.Context, addr common.Address, amount *big.In
 		return false, err
 	}
 
-	pCtx := vm.UnwrapPolarContext(ctx)
+	pCtx := pvm.UnwrapPolarContext(ctx)
 	pCtx.AddBalance(addr, amount)
 
 	return true, nil
@@ -77,7 +77,7 @@ func (c *Contract) Burn(ctx context.Context, addr common.Address, amount *big.In
 		return false, err
 	}
 
-	pCtx := vm.UnwrapPolarContext(ctx)
+	pCtx := pvm.UnwrapPolarContext(ctx)
 	pCtx.SubBalance(addr, amount)
 
 	return true, nil
@@ -90,7 +90,7 @@ func (c *Contract) SetMinter(ctx context.Context, newMinter common.Address) (boo
 		return false, err
 	}
 
-	pCtx := vm.UnwrapPolarContext(ctx)
+	pCtx := pvm.UnwrapPolarContext(ctx)
 	pCtx.SetState(Slots.Minter, common.BytesToHash(newMinter.Bytes()))
 
 	return true, nil
@@ -107,6 +107,8 @@ func (c *Contract) TransferOwnership(ctx context.Context, newOwner common.Addres
 
 // RenounceOwnership renounces the ownership of the HypNative contract
 func (c *Contract) RenounceOwnership(ctx context.Context) (bool, error) {
+	pCtx := pvm.UnwrapPolarContext(ctx)
+	pCtx.SetState(Slots.OwnerRenounced, common.BytesToHash([]byte{0x01}))
 	return c.internalTransferOwnership(ctx, ZeroAddress)
 }
 
@@ -116,7 +118,7 @@ func (c *Contract) internalTransferOwnership(ctx context.Context, newOwner commo
 		return false, err
 	}
 
-	pCtx := vm.UnwrapPolarContext(ctx)
+	pCtx := pvm.UnwrapPolarContext(ctx)
 	pCtx.SetState(Slots.Owner, common.BytesToHash(newOwner.Bytes()))
 
 	return true, nil
@@ -124,19 +126,25 @@ func (c *Contract) internalTransferOwnership(ctx context.Context, newOwner commo
 
 // Access control
 func SenderIsOwner(ctx context.Context) error {
-	pCtx := vm.UnwrapPolarContext(ctx)
-	owner := pCtx.GetState(Slots.Owner)
-	owner := common.BytesToHash(common.HexToAddress("0x20f33CE90A13a4b5E7697E3544c3083B8F8A51D4").Bytes())
-	if !bytes.Equal(owner.Bytes(), common.BytesToHash(pCtx.MsgSender().Bytes()).Bytes()) {
+	pCtx := pvm.UnwrapPolarContext(ctx)
+	owner := common.BytesToAddress(pCtx.GetState(Slots.Owner).Bytes())
+	ownerRenounced := pCtx.GetState(Slots.OwnerRenounced)
+
+	// owner not set and not renounced
+	if owner.Cmp(ZeroAddress) == 0 && bytes.Equal(ownerRenounced.Bytes(), common.BytesToHash([]byte{0x00}).Bytes()) {
+		return nil
+	}
+
+	if owner.Cmp(pCtx.MsgSender()) != 0 {
 		return errors.New("caller is not the owner")
 	}
 	return nil
 }
 
 func SenderIsMinter(ctx context.Context) error {
-	pCtx := vm.UnwrapPolarContext(ctx)
-	allowedMinter := pCtx.GetState(Slots.Minter)
-	if !bytes.Equal(allowedMinter.Bytes(), common.BytesToHash(pCtx.MsgSender().Bytes()).Bytes()) {
+	pCtx := pvm.UnwrapPolarContext(ctx)
+	allowedMinter := common.BytesToAddress(pCtx.GetState(Slots.Minter).Bytes())
+	if allowedMinter.Cmp(pCtx.MsgSender()) != 0 {
 		return errors.New("caller is not the minter")
 	}
 	return nil
