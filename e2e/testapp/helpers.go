@@ -35,6 +35,7 @@ import (
 
 	hypnativeprecompile "github.com/berachain/polaris/cosmos/precompile/hypnative"
 	jsonstoreprecompile "github.com/berachain/polaris/cosmos/precompile/jsonstore"
+	jsonutilprecompile "github.com/berachain/polaris/cosmos/precompile/jsonutil"
 )
 
 // PrecompilesToInject returns a function that provides the initialization of the standard
@@ -66,6 +67,7 @@ func PrecompilesToInject(
 			stakingprecompile.NewPrecompileContract(app.AccountKeeper, app.StakingKeeper),
 			hypnativeprecompile.NewPrecompileContract(),
 			jsonstoreprecompile.NewPrecompileContract(),
+			jsonutilprecompile.NewPrecompileContract(),
 		}...)
 
 		// Add the custom precompiles to the injector.
