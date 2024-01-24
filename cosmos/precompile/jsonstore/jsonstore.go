@@ -4,25 +4,24 @@ import (
 	"bytes"
 	"compress/gzip"
 	"context"
-	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"io"
 	"math/big"
 
-	"github.com/tidwall/gjson"
-	"github.com/tidwall/sjson"
+	generated "github.com/berachain/polaris/contracts/bindings/cosmos/precompile/jsonstore"
+	"github.com/berachain/polaris/cosmos/precompile/jsonutil"
+	ethprecompile "github.com/berachain/polaris/eth/core/precompile"
+	pvm "github.com/berachain/polaris/eth/core/vm"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/valyala/fastjson"
-	generated "pkg.berachain.dev/polaris/contracts/bindings/cosmos/precompile/jsonstore"
-	"pkg.berachain.dev/polaris/eth/common"
-	ethprecompile "pkg.berachain.dev/polaris/eth/core/precompile"
-	"pkg.berachain.dev/polaris/eth/core/vm"
-	"pkg.berachain.dev/polaris/eth/crypto"
 )
 
 // Contract is the main struct for the HypNative contract
 type Contract struct {
 	ethprecompile.BaseContract
+	jsonutil *jsonutil.Contract
 }
 
 // NewPrecompileContract creates a new instance of the HypNative contract
@@ -32,40 +31,53 @@ func NewPrecompileContract() *Contract {
 			generated.JsonStoreMetaData.ABI,
 			common.HexToAddress("0x666F726d61000000000000000000000000000002"),
 		),
+		jsonutil: jsonutil.NewPrecompileContract(),
 	}
+}
+
+// Solidity: function exists(address key, uint256 slot, string path) view returns(bool)
+func (c *Contract) Exists(ctx context.Context, key common.Address, slot *big.Int, path string) (bool, error) {
+	storageVal := retrieveStorage(ctx, key, slot)
+	return c.jsonutil.Exists(ctx, storageVal, path)
 }
 
 // Solidity: function get(address key, uint256 slot, string path) view returns(string)
 func (c *Contract) Get(ctx context.Context, key common.Address, slot *big.Int, path string) (string, error) {
 	storageVal := retrieveStorage(ctx, key, slot)
-	filteredVal := gjson.Get(storageVal, path)
-	return filteredVal.String(), nil
+	return c.jsonutil.Get(ctx, storageVal, path)
 }
 
 // Solidity: function get(address key, uint256 slot) view returns(string)
 func (c *Contract) Get0(ctx context.Context, key common.Address, slot *big.Int) (string, error) {
+	return retrieveStorage(ctx, key, slot), nil
+}
+
+// Solidity: function getBool(address key, uint256 slot, string path) view returns(bool)
+func (c *Contract) GetBool(ctx context.Context, key common.Address, slot *big.Int, path string) (bool, error) {
 	storageVal := retrieveStorage(ctx, key, slot)
-	if storageVal == "" {
-		storageVal = `{}`
-	}
-	return storageVal, nil
+	return c.jsonutil.GetBool(ctx, storageVal, path)
+}
+
+// Solidity: function getInt(address key, uint256 slot, string path) view returns(int256)
+func (c *Contract) GetInt(ctx context.Context, key common.Address, slot *big.Int, path string) (*big.Int, error) {
+	storageVal := retrieveStorage(ctx, key, slot)
+	return c.jsonutil.GetInt(ctx, storageVal, path)
+}
+
+// Solidity: function getUint(address key, uint256 slot, string path) view returns(uint256)
+func (c *Contract) GetUint(ctx context.Context, key common.Address, slot *big.Int, path string) (*big.Int, error) {
+	return c.GetInt(ctx, key, slot, path)
 }
 
 // Solidity: function dataURI(address key, uint256 slot) view returns(string)
 func (c *Contract) DataURI(ctx context.Context, key common.Address, slot *big.Int) (string, error) {
 	storageVal := retrieveStorage(ctx, key, slot)
-	if storageVal == "" {
-		storageVal = `{}`
-	}
-	dataURI := "data:application/json;base64," + base64.StdEncoding.EncodeToString([]byte(storageVal))
-	return dataURI, nil
+	return c.jsonutil.DataURI(ctx, storageVal)
 }
 
 // Solidity: function set(uint256 slot, string jsonBlob) returns(bool)
 func (c *Contract) Set(ctx context.Context, slot *big.Int, jsonBlob string) (bool, error) {
-	pCtx := vm.UnwrapPolarContext(ctx)
-	key := pCtx.MsgSender()
-	return updateStorage(ctx, key, slot, jsonBlob)
+	return updateMsgSenderStorage(ctx, slot, jsonBlob)
 }
 
 // Solidity: function set(uint256 slot, string path, string value) returns(bool)
@@ -73,38 +85,79 @@ func (c *Contract) Set0(ctx context.Context, slot *big.Int, path string, value s
 	return c.Set1(ctx, slot, []string{path}, []string{value})
 }
 
-// Solidity: function set(uint256 slot, string[] path, string[] value) returns(bool)
+// Solidity: function set(uint256 slot, string[] paths, string[] values) returns(bool)
 func (c *Contract) Set1(ctx context.Context, slot *big.Int, paths []string, values []string) (bool, error) {
-	pCtx := vm.UnwrapPolarContext(ctx)
-	key := pCtx.MsgSender()
-	storageVal := retrieveStorage(ctx, key, slot)
-	if storageVal == "" {
-		storageVal = `{}`
+	storageVal := retrieveMsgSenderStorage(ctx, slot)
+	updatedJson, err := c.jsonutil.Set(ctx, storageVal, paths, values)
+	if err != nil {
+		return false, err
 	}
-	updatedJson := storageVal
-	for i, path := range paths {
-		updatedJson, _ = sjson.Set(updatedJson, path, values[i])
+	return updateMsgSenderStorage(ctx, slot, updatedJson)
+}
+
+// Solidity: function setRaw(uint256 slot, string path, string rawBlob) returns(bool)
+func (c *Contract) SetRaw(ctx context.Context, slot *big.Int, path string, rawBlob string) (bool, error) {
+	return c.SetRaw0(ctx, slot, []string{path}, []string{rawBlob})
+}
+
+// Solidity: function setRaw(uint256 slot, string[] paths, string[] rawBlobs) returns(bool)
+func (c *Contract) SetRaw0(ctx context.Context, slot *big.Int, paths []string, rawBlobs []string) (bool, error) {
+	storageVal := retrieveMsgSenderStorage(ctx, slot)
+	updatedJson, err := c.jsonutil.SetRaw0(ctx, storageVal, paths, rawBlobs)
+	if err != nil {
+		return false, err
 	}
-	return updateStorage(ctx, key, slot, updatedJson)
+	return updateMsgSenderStorage(ctx, slot, updatedJson)
+}
+
+// Solidity: function setBool(uint256 slot, string path, bool value) returns(bool)
+func (c *Contract) SetBool(ctx context.Context, slot *big.Int, path string, value bool) (bool, error) {
+	return c.SetBool0(ctx, slot, []string{path}, []bool{value})
+}
+
+// Solidity: function setBool(uint256 slot, string[] paths, bool[] values) returns(bool)
+func (c *Contract) SetBool0(ctx context.Context, slot *big.Int, paths []string, values []bool) (bool, error) {
+	storageVal := retrieveMsgSenderStorage(ctx, slot)
+	updatedJson, err := c.jsonutil.SetBool(ctx, storageVal, paths, values)
+	if err != nil {
+		return false, err
+	}
+	return updateMsgSenderStorage(ctx, slot, updatedJson)
+}
+
+// Solidity: function setInt(uint256 slot, string[] paths, int256[] values) returns(bool)
+func (c *Contract) SetInt(ctx context.Context, slot *big.Int, paths []string, values []*big.Int) (bool, error) {
+	storageVal := retrieveMsgSenderStorage(ctx, slot)
+	updatedJson, err := c.jsonutil.SetInt(ctx, storageVal, paths, values)
+	if err != nil {
+		return false, err
+	}
+	return updateMsgSenderStorage(ctx, slot, updatedJson)
+}
+
+// Solidity: function setInt(uint256 slot, string path, int256 value) returns(bool)
+func (c *Contract) SetInt0(ctx context.Context, slot *big.Int, path string, value *big.Int) (bool, error) {
+	return c.SetInt(ctx, slot, []string{path}, []*big.Int{value})
+}
+
+// Solidity: function setUint(uint256 slot, string[] paths, uint256[] values) returns(bool)
+func (c *Contract) SetUint(ctx context.Context, slot *big.Int, paths []string, values []*big.Int) (bool, error) {
+	return c.SetInt(ctx, slot, paths, values)
+}
+
+// Solidity: function setUint(uint256 slot, string path, uint256 value) returns(bool)
+func (c *Contract) SetUint0(ctx context.Context, slot *big.Int, path string, value *big.Int) (bool, error) {
+	return c.SetInt0(ctx, slot, path, value)
 }
 
 // Solidity: function subReplace(uint256 slot, string searchPath, string[] replacePaths, string[] values) returns(bool)
 func (c *Contract) SubReplace(ctx context.Context, slot *big.Int, searchPath string, replacePaths []string, values []string) (bool, error) {
-	pCtx := vm.UnwrapPolarContext(ctx)
-	key := pCtx.MsgSender()
-	storageVal := retrieveStorage(ctx, key, slot)
-	result := gjson.Get(storageVal, searchPath)
-	updatedJson := storageVal
-	offset := 0
-	for _, r := range result.Array() {
-		replacement := r.Raw
-		for i, replacePath := range replacePaths {
-			replacement, _ = sjson.Set(replacement, replacePath, values[i])
-		}
-		updatedJson = updatedJson[:r.Index+offset] + replacement + updatedJson[r.Index+offset+len(r.Raw):]
-		offset += len(replacement) - len(r.Raw)
+	storageVal := retrieveMsgSenderStorage(ctx, slot)
+	updatedJson, err := c.jsonutil.SubReplace(ctx, storageVal, searchPath, replacePaths, values)
+	if err != nil {
+		return false, err
 	}
-	return updateStorage(ctx, key, slot, updatedJson)
+	return updateMsgSenderStorage(ctx, slot, updatedJson)
 }
 
 // Solidity: function subReplace(uint256 slot, string searchPath, string replacePath, string value) returns(bool)
@@ -112,30 +165,80 @@ func (c *Contract) SubReplace0(ctx context.Context, slot *big.Int, searchPath st
 	return c.SubReplace(ctx, slot, searchPath, []string{replacePath}, []string{value})
 }
 
+// Solidity: function subReplaceBool(uint256 slot, string searchPath, string replacePath, bool value) returns(bool)
+func (c *Contract) SubReplaceBool(ctx context.Context, slot *big.Int, searchPath string, replacePath string, value bool) (bool, error) {
+	return c.SubReplaceBool0(ctx, slot, searchPath, []string{replacePath}, []bool{value})
+}
+
+// Solidity: function subReplaceBool(uint256 slot, string searchPath, string[] replacePaths, bool[] values) returns(bool)
+func (c *Contract) SubReplaceBool0(ctx context.Context, slot *big.Int, searchPath string, replacePaths []string, values []bool) (bool, error) {
+	storageVal := retrieveMsgSenderStorage(ctx, slot)
+	updatedJson, err := c.jsonutil.SubReplaceBool(ctx, storageVal, searchPath, replacePaths, values)
+	if err != nil {
+		return false, err
+	}
+	return updateMsgSenderStorage(ctx, slot, updatedJson)
+}
+
+// Solidity: function subReplaceInt(uint256 slot, string searchPath, string replacePath, int256 value) returns(bool)
+func (c *Contract) SubReplaceInt(ctx context.Context, slot *big.Int, searchPath string, replacePath string, value *big.Int) (bool, error) {
+	return c.SubReplaceInt0(ctx, slot, searchPath, []string{replacePath}, []*big.Int{value})
+}
+
+// Solidity: function subReplaceInt(uint256 slot, string searchPath, string[] replacePaths, int256[] values) returns(bool)
+func (c *Contract) SubReplaceInt0(ctx context.Context, slot *big.Int, searchPath string, replacePaths []string, values []*big.Int) (bool, error) {
+	storageVal := retrieveMsgSenderStorage(ctx, slot)
+	updatedJson, err := c.jsonutil.SubReplaceInt0(ctx, storageVal, searchPath, replacePaths, values)
+	if err != nil {
+		return false, err
+	}
+	return updateMsgSenderStorage(ctx, slot, updatedJson)
+}
+
+// Solidity: function subReplaceUint(uint256 slot, string searchPath, string replacePath, uint256 value) returns(bool)
+func (c *Contract) SubReplaceUint(ctx context.Context, slot *big.Int, searchPath string, replacePath string, value *big.Int) (bool, error) {
+	return c.SubReplaceInt(ctx, slot, searchPath, replacePath, value)
+}
+
+// Solidity: function subReplaceUint(uint256 slot, string searchPath, string[] replacePaths, uint256[] values) returns(bool)
+func (c *Contract) SubReplaceUint0(ctx context.Context, slot *big.Int, searchPath string, replacePaths []string, values []*big.Int) (bool, error) {
+	return c.SubReplaceInt0(ctx, slot, searchPath, replacePaths, values)
+}
+
 // Solidity: function remove(uint256 slot, string path) returns(bool)
 func (c *Contract) Remove(ctx context.Context, slot *big.Int, path string) (bool, error) {
-	pCtx := vm.UnwrapPolarContext(ctx)
-	key := pCtx.MsgSender()
-	storageVal := retrieveStorage(ctx, key, slot)
-	if storageVal == "" {
-		storageVal = `{}`
+	storageVal := retrieveMsgSenderStorage(ctx, slot)
+	updatedJson, err := c.jsonutil.Remove(ctx, storageVal, path)
+	if err != nil {
+		return false, err
 	}
-	updatedJson, _ := sjson.Delete(storageVal, path)
-	return updateStorage(ctx, key, slot, updatedJson)
+	return updateMsgSenderStorage(ctx, slot, updatedJson)
+}
+
+func retrieveMsgSenderStorage(ctx context.Context, slot *big.Int) string {
+	pCtx := pvm.UnwrapPolarContext(ctx)
+	key := pCtx.MsgSender()
+	return retrieveStorage(ctx, key, slot)
+}
+
+func updateMsgSenderStorage(ctx context.Context, slot *big.Int, jsonBlob string) (bool, error) {
+	pCtx := pvm.UnwrapPolarContext(ctx)
+	key := pCtx.MsgSender()
+	return updateStorage(ctx, key, slot, jsonBlob)
 }
 
 func retrieveStorage(ctx context.Context, key common.Address, slot *big.Int) string {
-	pCtx := vm.UnwrapPolarContext(ctx)
+	strRes := ""
+	pCtx := pvm.UnwrapPolarContext(ctx)
 	storageKey := crypto.Keccak256Hash(
 		common.BytesToHash(key.Bytes()).Bytes(),
 		common.BigToHash(slot).Bytes(),
 	)
 	storageVal := pCtx.GetState(storageKey).Bytes()
-
 	if storageVal[0] != 0 {
 		length := int(storageVal[len(storageVal)-1] / 2)
 		res, _ := uncompress(storageVal[:length])
-		return string(res)
+		strRes = string(res)
 	} else {
 		length := int(new(big.Int).SetBytes(storageVal).Int64() / 2)
 		res := make([]byte, length)
@@ -152,8 +255,12 @@ func retrieveStorage(ctx context.Context, key common.Address, slot *big.Int) str
 			chunkKeyInt.Add(chunkKeyInt, big.NewInt(1))
 		}
 		res, _ = uncompress(res)
-		return string(res)
+		strRes = string(res)
 	}
+	if strRes == "" {
+		strRes = `{}`
+	}
+	return strRes
 }
 
 func updateStorage(ctx context.Context, key common.Address, slot *big.Int, jsonBlob string) (bool, error) {
@@ -162,7 +269,7 @@ func updateStorage(ctx context.Context, key common.Address, slot *big.Int, jsonB
 		return false, errors.New("invalid JSON")
 	}
 
-	pCtx := vm.UnwrapPolarContext(ctx)
+	pCtx := pvm.UnwrapPolarContext(ctx)
 	storageKey := crypto.Keccak256Hash(
 		common.BytesToHash(key.Bytes()).Bytes(),
 		common.BigToHash(slot).Bytes(),
