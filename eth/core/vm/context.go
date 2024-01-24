@@ -37,9 +37,6 @@ type ContextKey string
 // PolarContextKey is the key in the context.Context which holds the PolarContext.
 const PolarContextKey ContextKey = "polar-context"
 
-// AddressContextKey is the key in the context.Context which holds the Address.
-const AddressContextKey ContextKey = "address-context"
-
 // Compile-time assertion that PolarContext implements context.Context.
 var _ context.Context = (*PolarContext)(nil)
 
@@ -47,6 +44,7 @@ var _ context.Context = (*PolarContext)(nil)
 type PolarContext struct {
 	baseCtx   context.Context
 	evm       vm.PrecompileEVM
+	address   common.Address
 	msgSender common.Address
 	msgValue  *big.Int
 }
@@ -55,12 +53,14 @@ type PolarContext struct {
 func NewPolarContext(
 	baseCtx context.Context,
 	evm vm.PrecompileEVM,
+	address common.Address,
 	msgSender common.Address,
 	msgValue *big.Int,
 ) *PolarContext {
 	return &PolarContext{
 		baseCtx:   baseCtx,
 		evm:       evm,
+		address:   address,
 		msgSender: msgSender,
 		msgValue:  msgValue,
 	}
@@ -76,6 +76,10 @@ func (c *PolarContext) Context() context.Context {
 
 func (c *PolarContext) Evm() vm.PrecompileEVM {
 	return c.evm
+}
+
+func (c *PolarContext) Address() common.Address {
+	return c.address
 }
 
 func (c *PolarContext) MsgSender() common.Address {
@@ -99,11 +103,11 @@ func (c *PolarContext) SubBalance(addr common.Address, amount *big.Int) {
 }
 
 func (c *PolarContext) GetState(slot common.Hash) common.Hash {
-	return c.evm.GetStateDB().GetState(utils.MustGetAs[common.Address](c.Value(AddressContextKey)), slot)
+	return c.evm.GetStateDB().GetState(c.address, slot)
 }
 
 func (c *PolarContext) SetState(slot, value common.Hash) {
-	c.evm.GetStateDB().SetState(utils.MustGetAs[common.Address](c.Value(AddressContextKey)), slot, value)
+	c.evm.GetStateDB().SetState(c.address, slot, value)
 }
 
 // =============================================================================

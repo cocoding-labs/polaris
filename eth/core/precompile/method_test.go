@@ -50,6 +50,7 @@ var _ = Describe("Method", func() {
 				context.Background(),
 				vmmock.NewEVM(),
 				common.Address{1},
+				common.Address{1},
 				big.NewInt(0),
 			)
 
