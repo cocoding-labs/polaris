@@ -31,7 +31,7 @@ var (
 
 // JsonStoreMetaData contains all meta data concerning the JsonStore contract.
 var JsonStoreMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"jsonBlob\",\"type\":\"string\"}],\"name\":\"dataURI\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"key\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"}],\"name\":\"dataURI\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"key\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"}],\"name\":\"get\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"jsonBlob\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"}],\"name\":\"get\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"key\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"}],\"name\":\"get\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"jsonBlob\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"}],\"name\":\"remove\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"}],\"name\":\"remove\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"jsonBlob\",\"type\":\"string\"}],\"name\":\"set\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"value\",\"type\":\"string\"}],\"name\":\"set\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"jsonBlob\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"path\",\"type\":\"string[]\"},{\"internalType\":\"string[]\",\"name\":\"value\",\"type\":\"string[]\"}],\"name\":\"set\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"path\",\"type\":\"string[]\"},{\"internalType\":\"string[]\",\"name\":\"value\",\"type\":\"string[]\"}],\"name\":\"set\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"jsonBlob\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"value\",\"type\":\"string\"}],\"name\":\"set\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"searchPath\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"replacePaths\",\"type\":\"string[]\"},{\"internalType\":\"string[]\",\"name\":\"values\",\"type\":\"string[]\"}],\"name\":\"subReplace\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"searchPath\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"replacePath\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"value\",\"type\":\"string\"}],\"name\":\"subReplace\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"jsonBlob\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"searchPath\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"replacePaths\",\"type\":\"string[]\"},{\"internalType\":\"string[]\",\"name\":\"values\",\"type\":\"string[]\"}],\"name\":\"subReplace\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"jsonBlob\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"searchPath\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"replacePath\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"value\",\"type\":\"string\"}],\"name\":\"subReplace\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"key\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"}],\"name\":\"dataURI\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"key\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"}],\"name\":\"exists\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"key\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"}],\"name\":\"get\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"key\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"}],\"name\":\"get\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"key\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"}],\"name\":\"getBool\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"key\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"}],\"name\":\"getInt\",\"outputs\":[{\"internalType\":\"int256\",\"name\":\"\",\"type\":\"int256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"key\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"}],\"name\":\"getUint\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"}],\"name\":\"remove\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"jsonBlob\",\"type\":\"string\"}],\"name\":\"set\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"value\",\"type\":\"string\"}],\"name\":\"set\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"paths\",\"type\":\"string[]\"},{\"internalType\":\"string[]\",\"name\":\"values\",\"type\":\"string[]\"}],\"name\":\"set\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"value\",\"type\":\"bool\"}],\"name\":\"setBool\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"paths\",\"type\":\"string[]\"},{\"internalType\":\"bool[]\",\"name\":\"values\",\"type\":\"bool[]\"}],\"name\":\"setBool\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"paths\",\"type\":\"string[]\"},{\"internalType\":\"int256[]\",\"name\":\"values\",\"type\":\"int256[]\"}],\"name\":\"setInt\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"},{\"internalType\":\"int256\",\"name\":\"value\",\"type\":\"int256\"}],\"name\":\"setInt\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"rawBlob\",\"type\":\"string\"}],\"name\":\"setRaw\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"paths\",\"type\":\"string[]\"},{\"internalType\":\"string[]\",\"name\":\"rawBlobs\",\"type\":\"string[]\"}],\"name\":\"setRaw\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"paths\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"}],\"name\":\"setUint\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"path\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setUint\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"searchPath\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"replacePaths\",\"type\":\"string[]\"},{\"internalType\":\"string[]\",\"name\":\"values\",\"type\":\"string[]\"}],\"name\":\"subReplace\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"searchPath\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"replacePath\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"value\",\"type\":\"string\"}],\"name\":\"subReplace\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"searchPath\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"replacePath\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"value\",\"type\":\"bool\"}],\"name\":\"subReplaceBool\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"searchPath\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"replacePaths\",\"type\":\"string[]\"},{\"internalType\":\"bool[]\",\"name\":\"values\",\"type\":\"bool[]\"}],\"name\":\"subReplaceBool\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"searchPath\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"replacePath\",\"type\":\"string\"},{\"internalType\":\"int256\",\"name\":\"value\",\"type\":\"int256\"}],\"name\":\"subReplaceInt\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"searchPath\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"replacePaths\",\"type\":\"string[]\"},{\"internalType\":\"int256[]\",\"name\":\"values\",\"type\":\"int256[]\"}],\"name\":\"subReplaceInt\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"searchPath\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"replacePath\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"subReplaceUint\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"searchPath\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"replacePaths\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"}],\"name\":\"subReplaceUint\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
 }
 
 // JsonStoreABI is the input ABI used to generate the binding from.
@@ -180,12 +180,12 @@ func (_JsonStore *JsonStoreTransactorRaw) Transact(opts *bind.TransactOpts, meth
 	return _JsonStore.Contract.contract.Transact(opts, method, params...)
 }
 
-// DataURI is a free data retrieval call binding the contract method 0x08d1cf58.
+// DataURI is a free data retrieval call binding the contract method 0xda9e7501.
 //
-// Solidity: function dataURI(string jsonBlob) view returns(string)
-func (_JsonStore *JsonStoreCaller) DataURI(opts *bind.CallOpts, jsonBlob string) (string, error) {
+// Solidity: function dataURI(address key, uint256 slot) view returns(string)
+func (_JsonStore *JsonStoreCaller) DataURI(opts *bind.CallOpts, key common.Address, slot *big.Int) (string, error) {
 	var out []interface{}
-	err := _JsonStore.contract.Call(opts, &out, "dataURI", jsonBlob)
+	err := _JsonStore.contract.Call(opts, &out, "dataURI", key, slot)
 
 	if err != nil {
 		return *new(string), err
@@ -197,49 +197,49 @@ func (_JsonStore *JsonStoreCaller) DataURI(opts *bind.CallOpts, jsonBlob string)
 
 }
 
-// DataURI is a free data retrieval call binding the contract method 0x08d1cf58.
-//
-// Solidity: function dataURI(string jsonBlob) view returns(string)
-func (_JsonStore *JsonStoreSession) DataURI(jsonBlob string) (string, error) {
-	return _JsonStore.Contract.DataURI(&_JsonStore.CallOpts, jsonBlob)
-}
-
-// DataURI is a free data retrieval call binding the contract method 0x08d1cf58.
-//
-// Solidity: function dataURI(string jsonBlob) view returns(string)
-func (_JsonStore *JsonStoreCallerSession) DataURI(jsonBlob string) (string, error) {
-	return _JsonStore.Contract.DataURI(&_JsonStore.CallOpts, jsonBlob)
-}
-
-// DataURI0 is a free data retrieval call binding the contract method 0xda9e7501.
+// DataURI is a free data retrieval call binding the contract method 0xda9e7501.
 //
 // Solidity: function dataURI(address key, uint256 slot) view returns(string)
-func (_JsonStore *JsonStoreCaller) DataURI0(opts *bind.CallOpts, key common.Address, slot *big.Int) (string, error) {
+func (_JsonStore *JsonStoreSession) DataURI(key common.Address, slot *big.Int) (string, error) {
+	return _JsonStore.Contract.DataURI(&_JsonStore.CallOpts, key, slot)
+}
+
+// DataURI is a free data retrieval call binding the contract method 0xda9e7501.
+//
+// Solidity: function dataURI(address key, uint256 slot) view returns(string)
+func (_JsonStore *JsonStoreCallerSession) DataURI(key common.Address, slot *big.Int) (string, error) {
+	return _JsonStore.Contract.DataURI(&_JsonStore.CallOpts, key, slot)
+}
+
+// Exists is a free data retrieval call binding the contract method 0xaa1681a7.
+//
+// Solidity: function exists(address key, uint256 slot, string path) view returns(bool)
+func (_JsonStore *JsonStoreCaller) Exists(opts *bind.CallOpts, key common.Address, slot *big.Int, path string) (bool, error) {
 	var out []interface{}
-	err := _JsonStore.contract.Call(opts, &out, "dataURI0", key, slot)
+	err := _JsonStore.contract.Call(opts, &out, "exists", key, slot, path)
 
 	if err != nil {
-		return *new(string), err
+		return *new(bool), err
 	}
 
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
 
 	return out0, err
 
 }
 
-// DataURI0 is a free data retrieval call binding the contract method 0xda9e7501.
+// Exists is a free data retrieval call binding the contract method 0xaa1681a7.
 //
-// Solidity: function dataURI(address key, uint256 slot) view returns(string)
-func (_JsonStore *JsonStoreSession) DataURI0(key common.Address, slot *big.Int) (string, error) {
-	return _JsonStore.Contract.DataURI0(&_JsonStore.CallOpts, key, slot)
+// Solidity: function exists(address key, uint256 slot, string path) view returns(bool)
+func (_JsonStore *JsonStoreSession) Exists(key common.Address, slot *big.Int, path string) (bool, error) {
+	return _JsonStore.Contract.Exists(&_JsonStore.CallOpts, key, slot, path)
 }
 
-// DataURI0 is a free data retrieval call binding the contract method 0xda9e7501.
+// Exists is a free data retrieval call binding the contract method 0xaa1681a7.
 //
-// Solidity: function dataURI(address key, uint256 slot) view returns(string)
-func (_JsonStore *JsonStoreCallerSession) DataURI0(key common.Address, slot *big.Int) (string, error) {
-	return _JsonStore.Contract.DataURI0(&_JsonStore.CallOpts, key, slot)
+// Solidity: function exists(address key, uint256 slot, string path) view returns(bool)
+func (_JsonStore *JsonStoreCallerSession) Exists(key common.Address, slot *big.Int, path string) (bool, error) {
+	return _JsonStore.Contract.Exists(&_JsonStore.CallOpts, key, slot, path)
 }
 
 // Get is a free data retrieval call binding the contract method 0x0334404d.
@@ -273,43 +273,12 @@ func (_JsonStore *JsonStoreCallerSession) Get(key common.Address, slot *big.Int,
 	return _JsonStore.Contract.Get(&_JsonStore.CallOpts, key, slot, path)
 }
 
-// Get0 is a free data retrieval call binding the contract method 0x3e10510b.
-//
-// Solidity: function get(string jsonBlob, string path) view returns(string)
-func (_JsonStore *JsonStoreCaller) Get0(opts *bind.CallOpts, jsonBlob string, path string) (string, error) {
-	var out []interface{}
-	err := _JsonStore.contract.Call(opts, &out, "get0", jsonBlob, path)
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
-}
-
-// Get0 is a free data retrieval call binding the contract method 0x3e10510b.
-//
-// Solidity: function get(string jsonBlob, string path) view returns(string)
-func (_JsonStore *JsonStoreSession) Get0(jsonBlob string, path string) (string, error) {
-	return _JsonStore.Contract.Get0(&_JsonStore.CallOpts, jsonBlob, path)
-}
-
-// Get0 is a free data retrieval call binding the contract method 0x3e10510b.
-//
-// Solidity: function get(string jsonBlob, string path) view returns(string)
-func (_JsonStore *JsonStoreCallerSession) Get0(jsonBlob string, path string) (string, error) {
-	return _JsonStore.Contract.Get0(&_JsonStore.CallOpts, jsonBlob, path)
-}
-
-// Get1 is a free data retrieval call binding the contract method 0xb464631b.
+// Get0 is a free data retrieval call binding the contract method 0xb464631b.
 //
 // Solidity: function get(address key, uint256 slot) view returns(string)
-func (_JsonStore *JsonStoreCaller) Get1(opts *bind.CallOpts, key common.Address, slot *big.Int) (string, error) {
+func (_JsonStore *JsonStoreCaller) Get0(opts *bind.CallOpts, key common.Address, slot *big.Int) (string, error) {
 	var out []interface{}
-	err := _JsonStore.contract.Call(opts, &out, "get1", key, slot)
+	err := _JsonStore.contract.Call(opts, &out, "get0", key, slot)
 
 	if err != nil {
 		return *new(string), err
@@ -321,194 +290,132 @@ func (_JsonStore *JsonStoreCaller) Get1(opts *bind.CallOpts, key common.Address,
 
 }
 
-// Get1 is a free data retrieval call binding the contract method 0xb464631b.
+// Get0 is a free data retrieval call binding the contract method 0xb464631b.
 //
 // Solidity: function get(address key, uint256 slot) view returns(string)
-func (_JsonStore *JsonStoreSession) Get1(key common.Address, slot *big.Int) (string, error) {
-	return _JsonStore.Contract.Get1(&_JsonStore.CallOpts, key, slot)
+func (_JsonStore *JsonStoreSession) Get0(key common.Address, slot *big.Int) (string, error) {
+	return _JsonStore.Contract.Get0(&_JsonStore.CallOpts, key, slot)
 }
 
-// Get1 is a free data retrieval call binding the contract method 0xb464631b.
+// Get0 is a free data retrieval call binding the contract method 0xb464631b.
 //
 // Solidity: function get(address key, uint256 slot) view returns(string)
-func (_JsonStore *JsonStoreCallerSession) Get1(key common.Address, slot *big.Int) (string, error) {
-	return _JsonStore.Contract.Get1(&_JsonStore.CallOpts, key, slot)
+func (_JsonStore *JsonStoreCallerSession) Get0(key common.Address, slot *big.Int) (string, error) {
+	return _JsonStore.Contract.Get0(&_JsonStore.CallOpts, key, slot)
 }
 
-// Remove is a free data retrieval call binding the contract method 0x44590a7e.
+// GetBool is a free data retrieval call binding the contract method 0x577cbfc7.
 //
-// Solidity: function remove(string jsonBlob, string path) view returns(string)
-func (_JsonStore *JsonStoreCaller) Remove(opts *bind.CallOpts, jsonBlob string, path string) (string, error) {
+// Solidity: function getBool(address key, uint256 slot, string path) view returns(bool)
+func (_JsonStore *JsonStoreCaller) GetBool(opts *bind.CallOpts, key common.Address, slot *big.Int, path string) (bool, error) {
 	var out []interface{}
-	err := _JsonStore.contract.Call(opts, &out, "remove", jsonBlob, path)
+	err := _JsonStore.contract.Call(opts, &out, "getBool", key, slot, path)
 
 	if err != nil {
-		return *new(string), err
+		return *new(bool), err
 	}
 
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
 
 	return out0, err
 
 }
 
-// Remove is a free data retrieval call binding the contract method 0x44590a7e.
+// GetBool is a free data retrieval call binding the contract method 0x577cbfc7.
 //
-// Solidity: function remove(string jsonBlob, string path) view returns(string)
-func (_JsonStore *JsonStoreSession) Remove(jsonBlob string, path string) (string, error) {
-	return _JsonStore.Contract.Remove(&_JsonStore.CallOpts, jsonBlob, path)
+// Solidity: function getBool(address key, uint256 slot, string path) view returns(bool)
+func (_JsonStore *JsonStoreSession) GetBool(key common.Address, slot *big.Int, path string) (bool, error) {
+	return _JsonStore.Contract.GetBool(&_JsonStore.CallOpts, key, slot, path)
 }
 
-// Remove is a free data retrieval call binding the contract method 0x44590a7e.
+// GetBool is a free data retrieval call binding the contract method 0x577cbfc7.
 //
-// Solidity: function remove(string jsonBlob, string path) view returns(string)
-func (_JsonStore *JsonStoreCallerSession) Remove(jsonBlob string, path string) (string, error) {
-	return _JsonStore.Contract.Remove(&_JsonStore.CallOpts, jsonBlob, path)
+// Solidity: function getBool(address key, uint256 slot, string path) view returns(bool)
+func (_JsonStore *JsonStoreCallerSession) GetBool(key common.Address, slot *big.Int, path string) (bool, error) {
+	return _JsonStore.Contract.GetBool(&_JsonStore.CallOpts, key, slot, path)
 }
 
-// Set1 is a free data retrieval call binding the contract method 0xa35a52ec.
+// GetInt is a free data retrieval call binding the contract method 0x47a4d6da.
 //
-// Solidity: function set(string jsonBlob, string[] path, string[] value) view returns(string)
-func (_JsonStore *JsonStoreCaller) Set1(opts *bind.CallOpts, jsonBlob string, path []string, value []string) (string, error) {
+// Solidity: function getInt(address key, uint256 slot, string path) view returns(int256)
+func (_JsonStore *JsonStoreCaller) GetInt(opts *bind.CallOpts, key common.Address, slot *big.Int, path string) (*big.Int, error) {
 	var out []interface{}
-	err := _JsonStore.contract.Call(opts, &out, "set1", jsonBlob, path, value)
+	err := _JsonStore.contract.Call(opts, &out, "getInt", key, slot, path)
 
 	if err != nil {
-		return *new(string), err
+		return *new(*big.Int), err
 	}
 
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
 
 	return out0, err
 
 }
 
-// Set1 is a free data retrieval call binding the contract method 0xa35a52ec.
+// GetInt is a free data retrieval call binding the contract method 0x47a4d6da.
 //
-// Solidity: function set(string jsonBlob, string[] path, string[] value) view returns(string)
-func (_JsonStore *JsonStoreSession) Set1(jsonBlob string, path []string, value []string) (string, error) {
-	return _JsonStore.Contract.Set1(&_JsonStore.CallOpts, jsonBlob, path, value)
+// Solidity: function getInt(address key, uint256 slot, string path) view returns(int256)
+func (_JsonStore *JsonStoreSession) GetInt(key common.Address, slot *big.Int, path string) (*big.Int, error) {
+	return _JsonStore.Contract.GetInt(&_JsonStore.CallOpts, key, slot, path)
 }
 
-// Set1 is a free data retrieval call binding the contract method 0xa35a52ec.
+// GetInt is a free data retrieval call binding the contract method 0x47a4d6da.
 //
-// Solidity: function set(string jsonBlob, string[] path, string[] value) view returns(string)
-func (_JsonStore *JsonStoreCallerSession) Set1(jsonBlob string, path []string, value []string) (string, error) {
-	return _JsonStore.Contract.Set1(&_JsonStore.CallOpts, jsonBlob, path, value)
+// Solidity: function getInt(address key, uint256 slot, string path) view returns(int256)
+func (_JsonStore *JsonStoreCallerSession) GetInt(key common.Address, slot *big.Int, path string) (*big.Int, error) {
+	return _JsonStore.Contract.GetInt(&_JsonStore.CallOpts, key, slot, path)
 }
 
-// Set3 is a free data retrieval call binding the contract method 0xda465d74.
+// GetUint is a free data retrieval call binding the contract method 0xf853705c.
 //
-// Solidity: function set(string jsonBlob, string path, string value) view returns(string)
-func (_JsonStore *JsonStoreCaller) Set3(opts *bind.CallOpts, jsonBlob string, path string, value string) (string, error) {
+// Solidity: function getUint(address key, uint256 slot, string path) view returns(uint256)
+func (_JsonStore *JsonStoreCaller) GetUint(opts *bind.CallOpts, key common.Address, slot *big.Int, path string) (*big.Int, error) {
 	var out []interface{}
-	err := _JsonStore.contract.Call(opts, &out, "set3", jsonBlob, path, value)
+	err := _JsonStore.contract.Call(opts, &out, "getUint", key, slot, path)
 
 	if err != nil {
-		return *new(string), err
+		return *new(*big.Int), err
 	}
 
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
 
 	return out0, err
 
 }
 
-// Set3 is a free data retrieval call binding the contract method 0xda465d74.
+// GetUint is a free data retrieval call binding the contract method 0xf853705c.
 //
-// Solidity: function set(string jsonBlob, string path, string value) view returns(string)
-func (_JsonStore *JsonStoreSession) Set3(jsonBlob string, path string, value string) (string, error) {
-	return _JsonStore.Contract.Set3(&_JsonStore.CallOpts, jsonBlob, path, value)
+// Solidity: function getUint(address key, uint256 slot, string path) view returns(uint256)
+func (_JsonStore *JsonStoreSession) GetUint(key common.Address, slot *big.Int, path string) (*big.Int, error) {
+	return _JsonStore.Contract.GetUint(&_JsonStore.CallOpts, key, slot, path)
 }
 
-// Set3 is a free data retrieval call binding the contract method 0xda465d74.
+// GetUint is a free data retrieval call binding the contract method 0xf853705c.
 //
-// Solidity: function set(string jsonBlob, string path, string value) view returns(string)
-func (_JsonStore *JsonStoreCallerSession) Set3(jsonBlob string, path string, value string) (string, error) {
-	return _JsonStore.Contract.Set3(&_JsonStore.CallOpts, jsonBlob, path, value)
+// Solidity: function getUint(address key, uint256 slot, string path) view returns(uint256)
+func (_JsonStore *JsonStoreCallerSession) GetUint(key common.Address, slot *big.Int, path string) (*big.Int, error) {
+	return _JsonStore.Contract.GetUint(&_JsonStore.CallOpts, key, slot, path)
 }
 
-// SubReplace1 is a free data retrieval call binding the contract method 0xb27341bc.
-//
-// Solidity: function subReplace(string jsonBlob, string searchPath, string[] replacePaths, string[] values) view returns(string)
-func (_JsonStore *JsonStoreCaller) SubReplace1(opts *bind.CallOpts, jsonBlob string, searchPath string, replacePaths []string, values []string) (string, error) {
-	var out []interface{}
-	err := _JsonStore.contract.Call(opts, &out, "subReplace1", jsonBlob, searchPath, replacePaths, values)
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
-}
-
-// SubReplace1 is a free data retrieval call binding the contract method 0xb27341bc.
-//
-// Solidity: function subReplace(string jsonBlob, string searchPath, string[] replacePaths, string[] values) view returns(string)
-func (_JsonStore *JsonStoreSession) SubReplace1(jsonBlob string, searchPath string, replacePaths []string, values []string) (string, error) {
-	return _JsonStore.Contract.SubReplace1(&_JsonStore.CallOpts, jsonBlob, searchPath, replacePaths, values)
-}
-
-// SubReplace1 is a free data retrieval call binding the contract method 0xb27341bc.
-//
-// Solidity: function subReplace(string jsonBlob, string searchPath, string[] replacePaths, string[] values) view returns(string)
-func (_JsonStore *JsonStoreCallerSession) SubReplace1(jsonBlob string, searchPath string, replacePaths []string, values []string) (string, error) {
-	return _JsonStore.Contract.SubReplace1(&_JsonStore.CallOpts, jsonBlob, searchPath, replacePaths, values)
-}
-
-// SubReplace2 is a free data retrieval call binding the contract method 0xdb28035a.
-//
-// Solidity: function subReplace(string jsonBlob, string searchPath, string replacePath, string value) view returns(string)
-func (_JsonStore *JsonStoreCaller) SubReplace2(opts *bind.CallOpts, jsonBlob string, searchPath string, replacePath string, value string) (string, error) {
-	var out []interface{}
-	err := _JsonStore.contract.Call(opts, &out, "subReplace2", jsonBlob, searchPath, replacePath, value)
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
-}
-
-// SubReplace2 is a free data retrieval call binding the contract method 0xdb28035a.
-//
-// Solidity: function subReplace(string jsonBlob, string searchPath, string replacePath, string value) view returns(string)
-func (_JsonStore *JsonStoreSession) SubReplace2(jsonBlob string, searchPath string, replacePath string, value string) (string, error) {
-	return _JsonStore.Contract.SubReplace2(&_JsonStore.CallOpts, jsonBlob, searchPath, replacePath, value)
-}
-
-// SubReplace2 is a free data retrieval call binding the contract method 0xdb28035a.
-//
-// Solidity: function subReplace(string jsonBlob, string searchPath, string replacePath, string value) view returns(string)
-func (_JsonStore *JsonStoreCallerSession) SubReplace2(jsonBlob string, searchPath string, replacePath string, value string) (string, error) {
-	return _JsonStore.Contract.SubReplace2(&_JsonStore.CallOpts, jsonBlob, searchPath, replacePath, value)
-}
-
-// Remove0 is a paid mutator transaction binding the contract method 0x9939b3a2.
+// Remove is a paid mutator transaction binding the contract method 0x9939b3a2.
 //
 // Solidity: function remove(uint256 slot, string path) returns(bool)
-func (_JsonStore *JsonStoreTransactor) Remove0(opts *bind.TransactOpts, slot *big.Int, path string) (*types.Transaction, error) {
-	return _JsonStore.contract.Transact(opts, "remove0", slot, path)
+func (_JsonStore *JsonStoreTransactor) Remove(opts *bind.TransactOpts, slot *big.Int, path string) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "remove", slot, path)
 }
 
-// Remove0 is a paid mutator transaction binding the contract method 0x9939b3a2.
+// Remove is a paid mutator transaction binding the contract method 0x9939b3a2.
 //
 // Solidity: function remove(uint256 slot, string path) returns(bool)
-func (_JsonStore *JsonStoreSession) Remove0(slot *big.Int, path string) (*types.Transaction, error) {
-	return _JsonStore.Contract.Remove0(&_JsonStore.TransactOpts, slot, path)
+func (_JsonStore *JsonStoreSession) Remove(slot *big.Int, path string) (*types.Transaction, error) {
+	return _JsonStore.Contract.Remove(&_JsonStore.TransactOpts, slot, path)
 }
 
-// Remove0 is a paid mutator transaction binding the contract method 0x9939b3a2.
+// Remove is a paid mutator transaction binding the contract method 0x9939b3a2.
 //
 // Solidity: function remove(uint256 slot, string path) returns(bool)
-func (_JsonStore *JsonStoreTransactorSession) Remove0(slot *big.Int, path string) (*types.Transaction, error) {
-	return _JsonStore.Contract.Remove0(&_JsonStore.TransactOpts, slot, path)
+func (_JsonStore *JsonStoreTransactorSession) Remove(slot *big.Int, path string) (*types.Transaction, error) {
+	return _JsonStore.Contract.Remove(&_JsonStore.TransactOpts, slot, path)
 }
 
 // Set is a paid mutator transaction binding the contract method 0x64371977.
@@ -553,25 +460,193 @@ func (_JsonStore *JsonStoreTransactorSession) Set0(slot *big.Int, path string, v
 	return _JsonStore.Contract.Set0(&_JsonStore.TransactOpts, slot, path, value)
 }
 
-// Set2 is a paid mutator transaction binding the contract method 0xb1e0da6d.
+// Set1 is a paid mutator transaction binding the contract method 0xb1e0da6d.
 //
-// Solidity: function set(uint256 slot, string[] path, string[] value) returns(bool)
-func (_JsonStore *JsonStoreTransactor) Set2(opts *bind.TransactOpts, slot *big.Int, path []string, value []string) (*types.Transaction, error) {
-	return _JsonStore.contract.Transact(opts, "set2", slot, path, value)
+// Solidity: function set(uint256 slot, string[] paths, string[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactor) Set1(opts *bind.TransactOpts, slot *big.Int, paths []string, values []string) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "set1", slot, paths, values)
 }
 
-// Set2 is a paid mutator transaction binding the contract method 0xb1e0da6d.
+// Set1 is a paid mutator transaction binding the contract method 0xb1e0da6d.
 //
-// Solidity: function set(uint256 slot, string[] path, string[] value) returns(bool)
-func (_JsonStore *JsonStoreSession) Set2(slot *big.Int, path []string, value []string) (*types.Transaction, error) {
-	return _JsonStore.Contract.Set2(&_JsonStore.TransactOpts, slot, path, value)
+// Solidity: function set(uint256 slot, string[] paths, string[] values) returns(bool)
+func (_JsonStore *JsonStoreSession) Set1(slot *big.Int, paths []string, values []string) (*types.Transaction, error) {
+	return _JsonStore.Contract.Set1(&_JsonStore.TransactOpts, slot, paths, values)
 }
 
-// Set2 is a paid mutator transaction binding the contract method 0xb1e0da6d.
+// Set1 is a paid mutator transaction binding the contract method 0xb1e0da6d.
 //
-// Solidity: function set(uint256 slot, string[] path, string[] value) returns(bool)
-func (_JsonStore *JsonStoreTransactorSession) Set2(slot *big.Int, path []string, value []string) (*types.Transaction, error) {
-	return _JsonStore.Contract.Set2(&_JsonStore.TransactOpts, slot, path, value)
+// Solidity: function set(uint256 slot, string[] paths, string[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) Set1(slot *big.Int, paths []string, values []string) (*types.Transaction, error) {
+	return _JsonStore.Contract.Set1(&_JsonStore.TransactOpts, slot, paths, values)
+}
+
+// SetBool is a paid mutator transaction binding the contract method 0x8519e0e5.
+//
+// Solidity: function setBool(uint256 slot, string path, bool value) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SetBool(opts *bind.TransactOpts, slot *big.Int, path string, value bool) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "setBool", slot, path, value)
+}
+
+// SetBool is a paid mutator transaction binding the contract method 0x8519e0e5.
+//
+// Solidity: function setBool(uint256 slot, string path, bool value) returns(bool)
+func (_JsonStore *JsonStoreSession) SetBool(slot *big.Int, path string, value bool) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetBool(&_JsonStore.TransactOpts, slot, path, value)
+}
+
+// SetBool is a paid mutator transaction binding the contract method 0x8519e0e5.
+//
+// Solidity: function setBool(uint256 slot, string path, bool value) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SetBool(slot *big.Int, path string, value bool) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetBool(&_JsonStore.TransactOpts, slot, path, value)
+}
+
+// SetBool0 is a paid mutator transaction binding the contract method 0xf30dd855.
+//
+// Solidity: function setBool(uint256 slot, string[] paths, bool[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SetBool0(opts *bind.TransactOpts, slot *big.Int, paths []string, values []bool) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "setBool0", slot, paths, values)
+}
+
+// SetBool0 is a paid mutator transaction binding the contract method 0xf30dd855.
+//
+// Solidity: function setBool(uint256 slot, string[] paths, bool[] values) returns(bool)
+func (_JsonStore *JsonStoreSession) SetBool0(slot *big.Int, paths []string, values []bool) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetBool0(&_JsonStore.TransactOpts, slot, paths, values)
+}
+
+// SetBool0 is a paid mutator transaction binding the contract method 0xf30dd855.
+//
+// Solidity: function setBool(uint256 slot, string[] paths, bool[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SetBool0(slot *big.Int, paths []string, values []bool) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetBool0(&_JsonStore.TransactOpts, slot, paths, values)
+}
+
+// SetInt is a paid mutator transaction binding the contract method 0xc297d59a.
+//
+// Solidity: function setInt(uint256 slot, string[] paths, int256[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SetInt(opts *bind.TransactOpts, slot *big.Int, paths []string, values []*big.Int) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "setInt", slot, paths, values)
+}
+
+// SetInt is a paid mutator transaction binding the contract method 0xc297d59a.
+//
+// Solidity: function setInt(uint256 slot, string[] paths, int256[] values) returns(bool)
+func (_JsonStore *JsonStoreSession) SetInt(slot *big.Int, paths []string, values []*big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetInt(&_JsonStore.TransactOpts, slot, paths, values)
+}
+
+// SetInt is a paid mutator transaction binding the contract method 0xc297d59a.
+//
+// Solidity: function setInt(uint256 slot, string[] paths, int256[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SetInt(slot *big.Int, paths []string, values []*big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetInt(&_JsonStore.TransactOpts, slot, paths, values)
+}
+
+// SetInt0 is a paid mutator transaction binding the contract method 0xf10ff226.
+//
+// Solidity: function setInt(uint256 slot, string path, int256 value) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SetInt0(opts *bind.TransactOpts, slot *big.Int, path string, value *big.Int) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "setInt0", slot, path, value)
+}
+
+// SetInt0 is a paid mutator transaction binding the contract method 0xf10ff226.
+//
+// Solidity: function setInt(uint256 slot, string path, int256 value) returns(bool)
+func (_JsonStore *JsonStoreSession) SetInt0(slot *big.Int, path string, value *big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetInt0(&_JsonStore.TransactOpts, slot, path, value)
+}
+
+// SetInt0 is a paid mutator transaction binding the contract method 0xf10ff226.
+//
+// Solidity: function setInt(uint256 slot, string path, int256 value) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SetInt0(slot *big.Int, path string, value *big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetInt0(&_JsonStore.TransactOpts, slot, path, value)
+}
+
+// SetRaw is a paid mutator transaction binding the contract method 0x1a20af47.
+//
+// Solidity: function setRaw(uint256 slot, string path, string rawBlob) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SetRaw(opts *bind.TransactOpts, slot *big.Int, path string, rawBlob string) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "setRaw", slot, path, rawBlob)
+}
+
+// SetRaw is a paid mutator transaction binding the contract method 0x1a20af47.
+//
+// Solidity: function setRaw(uint256 slot, string path, string rawBlob) returns(bool)
+func (_JsonStore *JsonStoreSession) SetRaw(slot *big.Int, path string, rawBlob string) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetRaw(&_JsonStore.TransactOpts, slot, path, rawBlob)
+}
+
+// SetRaw is a paid mutator transaction binding the contract method 0x1a20af47.
+//
+// Solidity: function setRaw(uint256 slot, string path, string rawBlob) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SetRaw(slot *big.Int, path string, rawBlob string) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetRaw(&_JsonStore.TransactOpts, slot, path, rawBlob)
+}
+
+// SetRaw0 is a paid mutator transaction binding the contract method 0x64aa7eb1.
+//
+// Solidity: function setRaw(uint256 slot, string[] paths, string[] rawBlobs) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SetRaw0(opts *bind.TransactOpts, slot *big.Int, paths []string, rawBlobs []string) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "setRaw0", slot, paths, rawBlobs)
+}
+
+// SetRaw0 is a paid mutator transaction binding the contract method 0x64aa7eb1.
+//
+// Solidity: function setRaw(uint256 slot, string[] paths, string[] rawBlobs) returns(bool)
+func (_JsonStore *JsonStoreSession) SetRaw0(slot *big.Int, paths []string, rawBlobs []string) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetRaw0(&_JsonStore.TransactOpts, slot, paths, rawBlobs)
+}
+
+// SetRaw0 is a paid mutator transaction binding the contract method 0x64aa7eb1.
+//
+// Solidity: function setRaw(uint256 slot, string[] paths, string[] rawBlobs) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SetRaw0(slot *big.Int, paths []string, rawBlobs []string) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetRaw0(&_JsonStore.TransactOpts, slot, paths, rawBlobs)
+}
+
+// SetUint is a paid mutator transaction binding the contract method 0x1a294636.
+//
+// Solidity: function setUint(uint256 slot, string[] paths, uint256[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SetUint(opts *bind.TransactOpts, slot *big.Int, paths []string, values []*big.Int) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "setUint", slot, paths, values)
+}
+
+// SetUint is a paid mutator transaction binding the contract method 0x1a294636.
+//
+// Solidity: function setUint(uint256 slot, string[] paths, uint256[] values) returns(bool)
+func (_JsonStore *JsonStoreSession) SetUint(slot *big.Int, paths []string, values []*big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetUint(&_JsonStore.TransactOpts, slot, paths, values)
+}
+
+// SetUint is a paid mutator transaction binding the contract method 0x1a294636.
+//
+// Solidity: function setUint(uint256 slot, string[] paths, uint256[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SetUint(slot *big.Int, paths []string, values []*big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetUint(&_JsonStore.TransactOpts, slot, paths, values)
+}
+
+// SetUint0 is a paid mutator transaction binding the contract method 0x711295fc.
+//
+// Solidity: function setUint(uint256 slot, string path, uint256 value) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SetUint0(opts *bind.TransactOpts, slot *big.Int, path string, value *big.Int) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "setUint0", slot, path, value)
+}
+
+// SetUint0 is a paid mutator transaction binding the contract method 0x711295fc.
+//
+// Solidity: function setUint(uint256 slot, string path, uint256 value) returns(bool)
+func (_JsonStore *JsonStoreSession) SetUint0(slot *big.Int, path string, value *big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetUint0(&_JsonStore.TransactOpts, slot, path, value)
+}
+
+// SetUint0 is a paid mutator transaction binding the contract method 0x711295fc.
+//
+// Solidity: function setUint(uint256 slot, string path, uint256 value) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SetUint0(slot *big.Int, path string, value *big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SetUint0(&_JsonStore.TransactOpts, slot, path, value)
 }
 
 // SubReplace is a paid mutator transaction binding the contract method 0x03af1afa.
@@ -614,4 +689,130 @@ func (_JsonStore *JsonStoreSession) SubReplace0(slot *big.Int, searchPath string
 // Solidity: function subReplace(uint256 slot, string searchPath, string replacePath, string value) returns(bool)
 func (_JsonStore *JsonStoreTransactorSession) SubReplace0(slot *big.Int, searchPath string, replacePath string, value string) (*types.Transaction, error) {
 	return _JsonStore.Contract.SubReplace0(&_JsonStore.TransactOpts, slot, searchPath, replacePath, value)
+}
+
+// SubReplaceBool is a paid mutator transaction binding the contract method 0x378f3a6c.
+//
+// Solidity: function subReplaceBool(uint256 slot, string searchPath, string replacePath, bool value) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SubReplaceBool(opts *bind.TransactOpts, slot *big.Int, searchPath string, replacePath string, value bool) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "subReplaceBool", slot, searchPath, replacePath, value)
+}
+
+// SubReplaceBool is a paid mutator transaction binding the contract method 0x378f3a6c.
+//
+// Solidity: function subReplaceBool(uint256 slot, string searchPath, string replacePath, bool value) returns(bool)
+func (_JsonStore *JsonStoreSession) SubReplaceBool(slot *big.Int, searchPath string, replacePath string, value bool) (*types.Transaction, error) {
+	return _JsonStore.Contract.SubReplaceBool(&_JsonStore.TransactOpts, slot, searchPath, replacePath, value)
+}
+
+// SubReplaceBool is a paid mutator transaction binding the contract method 0x378f3a6c.
+//
+// Solidity: function subReplaceBool(uint256 slot, string searchPath, string replacePath, bool value) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SubReplaceBool(slot *big.Int, searchPath string, replacePath string, value bool) (*types.Transaction, error) {
+	return _JsonStore.Contract.SubReplaceBool(&_JsonStore.TransactOpts, slot, searchPath, replacePath, value)
+}
+
+// SubReplaceBool0 is a paid mutator transaction binding the contract method 0xfd0689f3.
+//
+// Solidity: function subReplaceBool(uint256 slot, string searchPath, string[] replacePaths, bool[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SubReplaceBool0(opts *bind.TransactOpts, slot *big.Int, searchPath string, replacePaths []string, values []bool) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "subReplaceBool0", slot, searchPath, replacePaths, values)
+}
+
+// SubReplaceBool0 is a paid mutator transaction binding the contract method 0xfd0689f3.
+//
+// Solidity: function subReplaceBool(uint256 slot, string searchPath, string[] replacePaths, bool[] values) returns(bool)
+func (_JsonStore *JsonStoreSession) SubReplaceBool0(slot *big.Int, searchPath string, replacePaths []string, values []bool) (*types.Transaction, error) {
+	return _JsonStore.Contract.SubReplaceBool0(&_JsonStore.TransactOpts, slot, searchPath, replacePaths, values)
+}
+
+// SubReplaceBool0 is a paid mutator transaction binding the contract method 0xfd0689f3.
+//
+// Solidity: function subReplaceBool(uint256 slot, string searchPath, string[] replacePaths, bool[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SubReplaceBool0(slot *big.Int, searchPath string, replacePaths []string, values []bool) (*types.Transaction, error) {
+	return _JsonStore.Contract.SubReplaceBool0(&_JsonStore.TransactOpts, slot, searchPath, replacePaths, values)
+}
+
+// SubReplaceInt is a paid mutator transaction binding the contract method 0x5d97110c.
+//
+// Solidity: function subReplaceInt(uint256 slot, string searchPath, string replacePath, int256 value) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SubReplaceInt(opts *bind.TransactOpts, slot *big.Int, searchPath string, replacePath string, value *big.Int) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "subReplaceInt", slot, searchPath, replacePath, value)
+}
+
+// SubReplaceInt is a paid mutator transaction binding the contract method 0x5d97110c.
+//
+// Solidity: function subReplaceInt(uint256 slot, string searchPath, string replacePath, int256 value) returns(bool)
+func (_JsonStore *JsonStoreSession) SubReplaceInt(slot *big.Int, searchPath string, replacePath string, value *big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SubReplaceInt(&_JsonStore.TransactOpts, slot, searchPath, replacePath, value)
+}
+
+// SubReplaceInt is a paid mutator transaction binding the contract method 0x5d97110c.
+//
+// Solidity: function subReplaceInt(uint256 slot, string searchPath, string replacePath, int256 value) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SubReplaceInt(slot *big.Int, searchPath string, replacePath string, value *big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SubReplaceInt(&_JsonStore.TransactOpts, slot, searchPath, replacePath, value)
+}
+
+// SubReplaceInt0 is a paid mutator transaction binding the contract method 0x7f3aac41.
+//
+// Solidity: function subReplaceInt(uint256 slot, string searchPath, string[] replacePaths, int256[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SubReplaceInt0(opts *bind.TransactOpts, slot *big.Int, searchPath string, replacePaths []string, values []*big.Int) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "subReplaceInt0", slot, searchPath, replacePaths, values)
+}
+
+// SubReplaceInt0 is a paid mutator transaction binding the contract method 0x7f3aac41.
+//
+// Solidity: function subReplaceInt(uint256 slot, string searchPath, string[] replacePaths, int256[] values) returns(bool)
+func (_JsonStore *JsonStoreSession) SubReplaceInt0(slot *big.Int, searchPath string, replacePaths []string, values []*big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SubReplaceInt0(&_JsonStore.TransactOpts, slot, searchPath, replacePaths, values)
+}
+
+// SubReplaceInt0 is a paid mutator transaction binding the contract method 0x7f3aac41.
+//
+// Solidity: function subReplaceInt(uint256 slot, string searchPath, string[] replacePaths, int256[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SubReplaceInt0(slot *big.Int, searchPath string, replacePaths []string, values []*big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SubReplaceInt0(&_JsonStore.TransactOpts, slot, searchPath, replacePaths, values)
+}
+
+// SubReplaceUint is a paid mutator transaction binding the contract method 0x095a7a8b.
+//
+// Solidity: function subReplaceUint(uint256 slot, string searchPath, string replacePath, uint256 value) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SubReplaceUint(opts *bind.TransactOpts, slot *big.Int, searchPath string, replacePath string, value *big.Int) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "subReplaceUint", slot, searchPath, replacePath, value)
+}
+
+// SubReplaceUint is a paid mutator transaction binding the contract method 0x095a7a8b.
+//
+// Solidity: function subReplaceUint(uint256 slot, string searchPath, string replacePath, uint256 value) returns(bool)
+func (_JsonStore *JsonStoreSession) SubReplaceUint(slot *big.Int, searchPath string, replacePath string, value *big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SubReplaceUint(&_JsonStore.TransactOpts, slot, searchPath, replacePath, value)
+}
+
+// SubReplaceUint is a paid mutator transaction binding the contract method 0x095a7a8b.
+//
+// Solidity: function subReplaceUint(uint256 slot, string searchPath, string replacePath, uint256 value) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SubReplaceUint(slot *big.Int, searchPath string, replacePath string, value *big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SubReplaceUint(&_JsonStore.TransactOpts, slot, searchPath, replacePath, value)
+}
+
+// SubReplaceUint0 is a paid mutator transaction binding the contract method 0x0cd72795.
+//
+// Solidity: function subReplaceUint(uint256 slot, string searchPath, string[] replacePaths, uint256[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactor) SubReplaceUint0(opts *bind.TransactOpts, slot *big.Int, searchPath string, replacePaths []string, values []*big.Int) (*types.Transaction, error) {
+	return _JsonStore.contract.Transact(opts, "subReplaceUint0", slot, searchPath, replacePaths, values)
+}
+
+// SubReplaceUint0 is a paid mutator transaction binding the contract method 0x0cd72795.
+//
+// Solidity: function subReplaceUint(uint256 slot, string searchPath, string[] replacePaths, uint256[] values) returns(bool)
+func (_JsonStore *JsonStoreSession) SubReplaceUint0(slot *big.Int, searchPath string, replacePaths []string, values []*big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SubReplaceUint0(&_JsonStore.TransactOpts, slot, searchPath, replacePaths, values)
+}
+
+// SubReplaceUint0 is a paid mutator transaction binding the contract method 0x0cd72795.
+//
+// Solidity: function subReplaceUint(uint256 slot, string searchPath, string[] replacePaths, uint256[] values) returns(bool)
+func (_JsonStore *JsonStoreTransactorSession) SubReplaceUint0(slot *big.Int, searchPath string, replacePaths []string, values []*big.Int) (*types.Transaction, error) {
+	return _JsonStore.Contract.SubReplaceUint0(&_JsonStore.TransactOpts, slot, searchPath, replacePaths, values)
 }
