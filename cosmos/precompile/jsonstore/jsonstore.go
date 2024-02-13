@@ -235,12 +235,12 @@ func retrieveStorage(ctx context.Context, key common.Address, slot *big.Int) str
 		common.BigToHash(slot).Bytes(),
 	)
 	storageVal := pCtx.GetState(storageKey).Bytes()
-	if storageVal[0] != 0 {
-		length := int(storageVal[len(storageVal)-1] / 2)
+	if storageVal[31]&1 == 0 {
+		length := int(storageVal[31] / 2)
 		res, _ := uncompress(storageVal[:length])
 		strRes = string(res)
 	} else {
-		length := int(new(big.Int).SetBytes(storageVal).Int64() / 2)
+		length := int((new(big.Int).SetBytes(storageVal).Int64() - 1) / 2)
 		res := make([]byte, length)
 		chunkKeyInt := crypto.Keccak256Hash(storageKey.Bytes()).Big()
 		for i := 0; i < length; i += 32 {
@@ -294,7 +294,7 @@ func updateStorage(ctx context.Context, key common.Address, slot *big.Int, jsonB
 		store[31] = byte(length * 2)
 		storageVal = common.BytesToHash(store)
 	} else {
-		storageVal = common.BigToHash(big.NewInt(int64(length * 2)))
+		storageVal = common.BigToHash(big.NewInt(int64(length*2) + 1))
 		chunkKeyInt := crypto.Keccak256Hash(storageKey.Bytes()).Big()
 		for i := 0; i < length; i += 32 {
 			end := i + 32
