@@ -10,3 +10,5 @@ use (
 	./eth
 	./lib
 )
+
+replace github.com/cosmos/cosmos-sdk => github.com/astriaorg/cosmos-sdk v0.50.1-rollkit-v0.5.0-astria

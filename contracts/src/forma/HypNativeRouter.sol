@@ -2,14 +2,14 @@
 pragma solidity ^0.8.4;
 
 import {TokenRouter} from "@hyperlane-xyz/core/contracts/token/libs/TokenRouter.sol";
-import {IHypNative} from "../cosmos/precompile/HypNative.sol";
+import {INativeMinter} from "./precompile/INativeMinter.sol";
 
 contract HypNativeRouter is TokenRouter {
 
-    IHypNative public immutable nativeMinter;
+    INativeMinter public immutable nativeMinter;
 
     constructor(address precompile, address _mailbox) TokenRouter(_mailbox) {
-        nativeMinter = IHypNative(precompile);
+        nativeMinter = INativeMinter(precompile);
     }
 
     function transferRemote(

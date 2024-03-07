@@ -6,7 +6,7 @@ import (
 	"errors"
 	"math/big"
 
-	generated "github.com/berachain/polaris/contracts/bindings/cosmos/precompile/jsonutil"
+	generated "github.com/berachain/polaris/contracts/bindings/forma/precompile/jsonutil"
 	ethprecompile "github.com/berachain/polaris/eth/core/precompile"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/tidwall/gjson"

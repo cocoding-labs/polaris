@@ -33,9 +33,9 @@ import (
 	distrkeeper "github.com/cosmos/cosmos-sdk/x/distribution/keeper"
 	govkeeper "github.com/cosmos/cosmos-sdk/x/gov/keeper"
 
-	hypnativeprecompile "github.com/berachain/polaris/cosmos/precompile/hypnative"
-	jsonstoreprecompile "github.com/berachain/polaris/cosmos/precompile/jsonstore"
+	compressprecompile "github.com/berachain/polaris/cosmos/precompile/compress"
 	jsonutilprecompile "github.com/berachain/polaris/cosmos/precompile/jsonutil"
+	nativeminterprecompile "github.com/berachain/polaris/cosmos/precompile/nativeminter"
 )
 
 // PrecompilesToInject returns a function that provides the initialization of the standard
@@ -65,8 +65,9 @@ func PrecompilesToInject(
 				app.interfaceRegistry,
 			),
 			stakingprecompile.NewPrecompileContract(app.AccountKeeper, app.StakingKeeper),
-			hypnativeprecompile.NewPrecompileContract(),
-			jsonstoreprecompile.NewPrecompileContract(),
+
+			nativeminterprecompile.NewPrecompileContract(),
+			compressprecompile.NewCompress(),
 			jsonutilprecompile.NewPrecompileContract(),
 		}...)
 

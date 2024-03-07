@@ -2,12 +2,7 @@
 
 pragma solidity ^0.8.4;
 
-interface IHypNative {
-
-    ////////////////////////////////////////// EVENTS /////////////////////////////////////////////
-
-    // Event emitted when ownership is transferred
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+interface INativeMinter {
 
     /////////////////////////////////////// READ METHODS //////////////////////////////////////////
 

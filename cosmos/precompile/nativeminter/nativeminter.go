@@ -1,4 +1,4 @@
-package hypnative
+package nativeminter
 
 import (
 	"bytes"
@@ -6,7 +6,7 @@ import (
 	"errors"
 	"math/big"
 
-	generated "github.com/berachain/polaris/contracts/bindings/cosmos/precompile/hypnative"
+	generated "github.com/berachain/polaris/contracts/bindings/forma/precompile/nativeminter"
 	ethprecompile "github.com/berachain/polaris/eth/core/precompile"
 	pvm "github.com/berachain/polaris/eth/core/vm"
 	"github.com/ethereum/go-ethereum/common"
@@ -15,32 +15,28 @@ import (
 // Contract is the main struct for the HypNative contract
 type Contract struct {
 	ethprecompile.BaseContract
-	initialOwner common.Address
 }
 
 // NewPrecompileContract creates a new instance of the HypNative contract
 func NewPrecompileContract() *Contract {
 	return &Contract{
 		BaseContract: ethprecompile.NewBaseContract(
-			generated.HypNativeMetaData.ABI,
+			generated.NativeMinterABI,
 			common.HexToAddress("0x666F726d61000000000000000000000000000001"),
 		),
-		initialOwner: common.HexToAddress("0x666F726d61000000000000000000000000000001"),
 	}
 }
 
 // StorageSlots is a struct that holds the storage slots for the HypNative contract
 type StorageSlots struct {
-	Owner          common.Hash
-	Minter         common.Hash
-	OwnerRenounced common.Hash
+	Owner  common.Hash
+	Minter common.Hash
 }
 
 // Slots is a global variable that holds the storage slots for the HypNative contract
 var Slots = StorageSlots{
-	Owner:          common.BytesToHash([]byte{0x00}), // slot 0
-	Minter:         common.BytesToHash([]byte{0x01}), // slot 1
-	OwnerRenounced: common.BytesToHash([]byte{0x02}), // slot 2
+	Owner:  common.BytesToHash([]byte{0x00}), // slot 0
+	Minter: common.BytesToHash([]byte{0x01}), // slot 1
 }
 
 var ZeroAddress = common.Address{}
@@ -59,7 +55,7 @@ func (c *Contract) Minter(ctx context.Context) (common.Address, error) {
 
 // Mint mints new tokens to the specified address
 func (c *Contract) Mint(ctx context.Context, addr common.Address, amount *big.Int) (bool, error) {
-	err := SenderIsMinter(ctx)
+	err := senderIsMinter(ctx)
 	if err != nil {
 		return false, err
 	}
@@ -72,12 +68,19 @@ func (c *Contract) Mint(ctx context.Context, addr common.Address, amount *big.In
 
 // Burn burns tokens from the specified address
 func (c *Contract) Burn(ctx context.Context, addr common.Address, amount *big.Int) (bool, error) {
-	err := SenderIsMinter(ctx)
+	err := senderIsMinter(ctx)
 	if err != nil {
 		return false, err
 	}
 
 	pCtx := pvm.UnwrapPolarContext(ctx)
+
+	// check balance is valid
+	balance := pCtx.GetBalance(addr)
+	if balance.Cmp(amount) < 0 {
+		return false, errors.New("insufficient balance for burn")
+	}
+
 	pCtx.SubBalance(addr, amount)
 
 	return true, nil
@@ -85,7 +88,7 @@ func (c *Contract) Burn(ctx context.Context, addr common.Address, amount *big.In
 
 // SetMinter sets a new minter for the HypNative contract
 func (c *Contract) SetMinter(ctx context.Context, newMinter common.Address) (bool, error) {
-	err := SenderIsOwner(ctx)
+	err := senderIsOwner(ctx)
 	if err != nil {
 		return false, err
 	}
@@ -107,13 +110,11 @@ func (c *Contract) TransferOwnership(ctx context.Context, newOwner common.Addres
 
 // RenounceOwnership renounces the ownership of the HypNative contract
 func (c *Contract) RenounceOwnership(ctx context.Context) (bool, error) {
-	pCtx := pvm.UnwrapPolarContext(ctx)
-	pCtx.SetState(Slots.OwnerRenounced, common.BytesToHash([]byte{0x01}))
 	return c.internalTransferOwnership(ctx, ZeroAddress)
 }
 
 func (c *Contract) internalTransferOwnership(ctx context.Context, newOwner common.Address) (bool, error) {
-	err := SenderIsOwner(ctx)
+	err := senderIsOwner(ctx)
 	if err != nil {
 		return false, err
 	}
@@ -125,23 +126,16 @@ func (c *Contract) internalTransferOwnership(ctx context.Context, newOwner commo
 }
 
 // Access control
-func SenderIsOwner(ctx context.Context) error {
+func senderIsOwner(ctx context.Context) error {
 	pCtx := pvm.UnwrapPolarContext(ctx)
 	owner := common.BytesToAddress(pCtx.GetState(Slots.Owner).Bytes())
-	ownerRenounced := pCtx.GetState(Slots.OwnerRenounced)
-
-	// owner not set and not renounced
-	if owner.Cmp(ZeroAddress) == 0 && bytes.Equal(ownerRenounced.Bytes(), common.BytesToHash([]byte{0x00}).Bytes()) {
-		return nil
-	}
-
 	if owner.Cmp(pCtx.MsgSender()) != 0 {
 		return errors.New("caller is not the owner")
 	}
 	return nil
 }
 
-func SenderIsMinter(ctx context.Context) error {
+func senderIsMinter(ctx context.Context) error {
 	pCtx := pvm.UnwrapPolarContext(ctx)
 	allowedMinter := common.BytesToAddress(pCtx.GetState(Slots.Minter).Bytes())
 	if allowedMinter.Cmp(pCtx.MsgSender()) != 0 {
