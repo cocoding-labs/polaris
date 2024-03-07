@@ -94,6 +94,10 @@ func (c *PolarContext) Block() *vm.BlockContext {
 	return c.evm.GetContext()
 }
 
+func (c *PolarContext) GetBalance(addr common.Address) *big.Int {
+	return c.evm.GetStateDB().GetBalance(addr)
+}
+
 func (c *PolarContext) AddBalance(addr common.Address, amount *big.Int) {
 	c.evm.GetStateDB().AddBalance(addr, amount)
 }
