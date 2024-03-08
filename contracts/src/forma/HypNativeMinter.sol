@@ -4,12 +4,14 @@ pragma solidity ^0.8.4;
 import {TokenRouter} from "@hyperlane-xyz/core/contracts/token/libs/TokenRouter.sol";
 import {INativeMinter} from "./precompile/INativeMinter.sol";
 
-contract HypNativeRouter is TokenRouter {
+contract HypNativeMinter is TokenRouter {
 
     INativeMinter public immutable nativeMinter;
+    uint256 public immutable scale;
 
-    constructor(address precompile, address _mailbox) TokenRouter(_mailbox) {
-        nativeMinter = INativeMinter(precompile);
+    constructor(address _precompile, uint256 _scale, address _mailbox) TokenRouter(_mailbox) {
+        nativeMinter = INativeMinter(_precompile);
+        scale = _scale;
     }
 
     function transferRemote(
@@ -17,9 +19,11 @@ contract HypNativeRouter is TokenRouter {
         bytes32 _recipient,
         uint256 _amount
     ) public payable virtual override returns (bytes32 messageId) {
-        require(msg.value >= _amount, "Native: amount exceeds msg.value");
+        require(msg.value >= _amount, "HypNativeMinter: amount exceeds msg.value");
         uint256 gasPayment = msg.value - _amount;
-        return _transferRemote(_destination, _recipient, _amount, gasPayment);
+        uint256 scaledAmount = _amount / scale;
+        require(scaledAmount > 0, "HypNativeMinter: destination amount < 1");
+        return _transferRemote(_destination, _recipient, scaledAmount, gasPayment);
     }
 
     function balanceOf(
@@ -31,7 +35,8 @@ contract HypNativeRouter is TokenRouter {
     function _transferFromSender(
         uint256 _amount
     ) internal override returns (bytes memory) {
-        nativeMinter.burn(address(this), _amount);
+        uint256 scaledAmount = _amount * scale;
+        nativeMinter.burn(address(this), scaledAmount);
         return bytes(""); // no metadata
     }
 
@@ -40,7 +45,8 @@ contract HypNativeRouter is TokenRouter {
         uint256 _amount,
         bytes calldata // no metadata
     ) internal virtual override {
-        nativeMinter.mint(_recipient, _amount);
+        uint256 scaledAmount = _amount * scale;
+        nativeMinter.mint(_recipient, scaledAmount);
     }
 
 }
