@@ -26,7 +26,7 @@ func NewPrecompileContract() *Contract {
 	return &Contract{
 		BaseContract: ethprecompile.NewBaseContract(
 			generated.JsonUtilMetaData.ABI,
-			common.HexToAddress("0x666F726d61000000000000000000000000000003"),
+			common.HexToAddress("0x0F043A0000000000000000000000000000000003"),
 		),
 	}
 }

@@ -19,7 +19,7 @@ func NewCompress() *Compress {
 	return &Compress{
 		BaseContract: ethprecompile.NewBaseContract(
 			generated.CompressABI,
-			common.HexToAddress("0x666F726d61000000000000000000000000000002"),
+			common.HexToAddress("0x0F043A0000000000000000000000000000000002"),
 		),
 	}
 }
