@@ -1,8 +1,10 @@
 package jsonutil
 
 import (
+	"bytes"
 	"context"
 	"encoding/base64"
+	"encoding/json"
 	"errors"
 	"math/big"
 
@@ -27,6 +29,15 @@ func NewPrecompileContract() *Contract {
 			common.HexToAddress("0x666F726d61000000000000000000000000000003"),
 		),
 	}
+}
+
+// Solidity: function validate(string memory jsonBlob) view external returns (bool)
+func (c *Contract) Validate(jsonBlob string) (bool, error) {
+	validationErr := fastjson.Validate(jsonBlob)
+	if validationErr != nil {
+		return false, errors.New("invalid JSON")
+	}
+	return true, nil
 }
 
 // Solidity: function exists(string jsonBlob, string path) view returns(bool)
@@ -81,6 +92,16 @@ func (c *Contract) DataURI(ctx context.Context, jsonBlob string) (string, error)
 	}
 	dataURI := "data:application/json;base64," + base64.StdEncoding.EncodeToString([]byte(jsonBlob))
 	return dataURI, nil
+}
+
+// Solidity: function compact(string memory jsonBlob) view external returns (string memory)
+func (c *Contract) Compact(jsonBlob string) (string, error) {
+	var buf bytes.Buffer
+	err := json.Compact(&buf, []byte(jsonBlob))
+	if err != nil {
+		return "{}", errors.New("unknown compact error")
+	}
+	return buf.String(), nil
 }
 
 // Solidity: function set(string jsonBlob, string[] paths, string[] values) view returns(string)

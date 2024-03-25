@@ -18,7 +18,11 @@ interface IJsonUtil {
 
   function exists(string memory jsonBlob, string memory path) view external returns (bool);
 
+  function validate(string memory jsonBlob) view external returns (bool);
+
   ////////////////////////////////////// MODIFICATION VIEWS (on jsonBlob) //////////////////////////////////////////
+
+  function compact(string memory jsonBlob) view external returns (string memory);
 
   function set(string memory jsonBlob, string memory path, string memory value) view external returns (string memory);
 
