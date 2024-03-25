@@ -32,7 +32,7 @@ func NewPrecompileContract() *Contract {
 }
 
 // Solidity: function validate(string memory jsonBlob) view external returns (bool)
-func (c *Contract) Validate(jsonBlob string) (bool, error) {
+func (c *Contract) Validate(ctx context.Context, jsonBlob string) (bool, error) {
 	validationErr := fastjson.Validate(jsonBlob)
 	if validationErr != nil {
 		return false, errors.New("invalid JSON")
@@ -95,7 +95,7 @@ func (c *Contract) DataURI(ctx context.Context, jsonBlob string) (string, error)
 }
 
 // Solidity: function compact(string memory jsonBlob) view external returns (string memory)
-func (c *Contract) Compact(jsonBlob string) (string, error) {
+func (c *Contract) Compact(ctx context.Context, jsonBlob string) (string, error) {
 	var buf bytes.Buffer
 	err := json.Compact(&buf, []byte(jsonBlob))
 	if err != nil {
